@@ -1,6 +1,7 @@
 import 'package:absensi_app/core/constants/colors.dart';
 import 'package:absensi_app/data/datasources/auth_remote_datasource.dart';
 import 'package:absensi_app/presentation/auth/bloc/login/login_bloc.dart';
+import 'package:absensi_app/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:absensi_app/presentation/auth/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,8 +17,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc(AuthRemoteDatasource()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginBloc(AuthRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => LogoutBloc(AuthRemoteDatasource()),
+        ),
+      ],
       child: MaterialApp(
         title: 'Absensi App',
         theme: ThemeData(

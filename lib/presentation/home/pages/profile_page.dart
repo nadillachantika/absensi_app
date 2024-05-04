@@ -1,6 +1,8 @@
+import 'package:absensi_app/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:absensi_app/core/core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -95,6 +97,16 @@ class ProfilePage extends StatelessWidget {
                 onTap: () {},
                 title: const Text('Perangkat Terdaftar'),
                 trailing: const Icon(Icons.chevron_right),
+              ),
+              const Divider(
+                color: AppColors.stroke,
+                height: 2.0,
+              ),
+               ListTile(
+                onTap: () {
+                  context.read<LogoutBloc>().add(const LogoutEvent.logout());
+                },
+                title: const Text('Logout'),
               ),
               const Divider(
                 color: AppColors.stroke,

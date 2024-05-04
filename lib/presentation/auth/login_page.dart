@@ -1,3 +1,4 @@
+import 'package:absensi_app/data/datasources/auth_local_datasource.dart';
 import 'package:absensi_app/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:absensi_app/presentation/home/pages/main_page.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
-  bool IsShowPassword = false;
+  bool isShowPassword = false;
 
   @override
   void initState() {
@@ -63,21 +64,34 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.all(8.0),
               child: Assets.icons.password.svg(),
             ),
-            obscureText: true,
+            obscureText: !isShowPassword,
+            suffixIcon: IconButton(
+              icon: Icon(
+                isShowPassword ? Icons.visibility_off : Icons.visibility,
+                color: AppColors.grey,
+              ),
+              onPressed: () {
+                setState(() {
+                  isShowPassword = !isShowPassword;
+                });
+              },
+            ),
           ),
           const SpaceHeight(80.0),
           BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
               state.maybeWhen(
-                orElse: () {},
-                success: (data) => context.pushReplacement(const MainPage()),
-                error: (message) => ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(message),
-                    backgroundColor: AppColors.red,
-                  )
-                )
-              );
+                  orElse: () {},
+                  success: (data) {
+                    AuthLocalDatasource().saveAuthData(data);
+
+                    context.pushReplacement(const MainPage());
+                  },
+                  error: (message) =>
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(message),
+                        backgroundColor: AppColors.red,
+                      )));
             },
             child: BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
@@ -93,9 +107,11 @@ class _LoginPageState extends State<LoginPage> {
                       label: 'Sign In',
                     );
                   },
-                  loading: () => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  loading: () {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
                   // error: (error) => Text(error),
                 );
               },
