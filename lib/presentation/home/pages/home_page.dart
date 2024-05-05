@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:absensi_app/core/core.dart';
 import '../widgets/menu_button.dart';
-import 'attendance_page.dart';
+import 'register_face_attendace_page.dart';
 import 'notes_page.dart';
 import 'notification_page.dart';
 import 'permit_page.dart';
