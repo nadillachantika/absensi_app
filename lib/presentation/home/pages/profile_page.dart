@@ -1,4 +1,6 @@
+import 'package:absensi_app/data/datasources/auth_local_datasource.dart';
 import 'package:absensi_app/presentation/auth/bloc/logout/logout_bloc.dart';
+import 'package:absensi_app/presentation/auth/login_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:absensi_app/core/core.dart';
@@ -102,11 +104,33 @@ class ProfilePage extends StatelessWidget {
                 color: AppColors.stroke,
                 height: 2.0,
               ),
-               ListTile(
-                onTap: () {
-                  context.read<LogoutBloc>().add(const LogoutEvent.logout());
+              BlocListener<LogoutBloc, LogoutState>(
+                listener: (context, state) {
+                  state.maybeWhen(
+                      orElse: () {},
+                      error: (error) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(error)));
+                      },
+                      success: () {
+                        AuthLocalDatasource().removeAuthData();
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('Logout Success'),
+                          backgroundColor: AppColors.primary,
+                        ));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()));
+                      });
                 },
-                title: const Text('Logout'),
+                child: ListTile(
+                  onTap: () {
+                    context.read<LogoutBloc>().add(const LogoutEvent.logout());
+                  },
+                  title: const Text('Logout'),
+                ),
               ),
               const Divider(
                 color: AppColors.stroke,

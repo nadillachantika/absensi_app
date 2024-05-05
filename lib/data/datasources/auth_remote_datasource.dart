@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:absensi_app/core/constants/variables.dart';
 import 'package:absensi_app/data/datasources/auth_local_datasource.dart';
@@ -36,7 +37,7 @@ class AuthRemoteDatasource {
     final response = await http.post(uri, headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${authData?.token}'
+      'Authorization': 'Bearer ${authData.token}'
     });
     return response.statusCode == 200
         ? const Right('Successfully logged out')
