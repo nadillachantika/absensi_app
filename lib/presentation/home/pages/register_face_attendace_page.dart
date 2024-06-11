@@ -239,52 +239,52 @@ class _AttendancePageState extends State<AttendancePage> {
                 width: 200,
                 height: 200,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: BlocConsumer<UpdateUserRegisterFaceBloc,
-                    UpdateUserRegisterFaceState>(
-                  listener: (context, state) {
-                    state.maybeWhen(
-                      orElse: () {},
-                      error: (message) {
-                        return ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(message),
-                          ),
-                        );
-                      },
-                      success: (data) {
-                        // AuthLocalDataSource()
-                        //     .reSaveAuthData(responseModel.user!);
-                        // Navigator.pop(context);
-                        // AuthLocalDatasource().updateAuthData(data);
-                        // context.pushReplacement(const MainPage());
-                      },
-                    );
-                  },
-                  builder: (context, state) {
-                    return state.maybeWhen(
-                      orElse: () {
-                        return Button.filled(
-                            onPressed: () async {
-                              // Image to XFile to be able to pass it to the bloc
+            //   Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: BlocConsumer<UpdateUserRegisterFaceBloc,
+            //         UpdateUserRegisterFaceState>(
+            //       listener: (context, state) {
+            //         state.maybeWhen(
+            //           orElse: () {},
+            //           error: (message) {
+            //             return ScaffoldMessenger.of(context).showSnackBar(
+            //               SnackBar(
+            //                 content: Text(message),
+            //               ),
+            //             );
+            //           },
+            //           success: (data) {
+            //             // AuthLocalDataSource()
+            //             //     .reSaveAuthData(responseModel.user!);
+            //             // Navigator.pop(context);
+            //             // AuthLocalDatasource().updateAuthData(data);
+            //             // context.pushReplacement(const MainPage());
+            //           },
+            //         );
+            //       },
+            //       builder: (context, state) {
+            //         return state.maybeWhen(
+            //           orElse: () {
+            //             return Button.filled(
+            //                 onPressed: () async {
+            //                   // Image to XFile to be able to pass it to the bloc
 
-                              // final XFile newCroppedFaced = XFile(croppedFace.);
-                              // context.read<UpdateUserRegisterFaceBloc>().add(
-                              //     UpdateUserRegisterFaceEvent
-                              //         .updateProfileRegisterFace(
-                              //             recognition.embedding.join(','),
-                              //             null));
-                            },
-                            label: 'Register');
-                      },
-                      loading: () => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
-                ),
-              ),
+            //                   // final XFile newCroppedFaced = XFile(croppedFace.);
+            //                   // context.read<UpdateUserRegisterFaceBloc>().add(
+            //                   //     UpdateUserRegisterFaceEvent
+            //                   //         .updateProfileRegisterFace(
+            //                   //             recognition.embedding.join(','),
+            //                   //             null));
+            //                 },
+            //                 label: 'Register');
+            //           },
+            //           loading: () => const Center(
+            //             child: CircularProgressIndicator(),
+            //           ),
+            //         );
+            //       },
+            //     ),
+            //   ),
              ],
           ),
         ),
